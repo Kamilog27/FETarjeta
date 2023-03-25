@@ -1,0 +1,76 @@
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-lg-8 offset-lg-2">
+            <div class="card">
+                <div class="card-body titulo">
+                    <h3>TARJETA CRÉDITO</h3>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="row mt-4">
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="titulo">{{accion|uppercase}} TARJETA</h5>
+                    <form [formGroup]="form" (ngSubmit)="guardarTarjeta()">
+                    <div class="input-group input-group-lg mb-3"> 
+                        <span class="input-group-text"><i class="fa-solid fa-user" 
+                                [class.green-icon]="form.get('titular')?.valid"
+                                [class.red-icon]="form.get('titular')?.invalid&&form.get('titular')?.touched" ></i></span>
+                        <input type="text" formControlName="titular" class="form-control" placeholder="Titular">
+                      </div>
+                      <div class="input-group input-group-lg mb-3">
+                        <span class="input-group-text"><i class="fa-solid fa-credit-card"
+                            [class.green-icon]="form.get('numeroTarjeta')?.valid"
+                            [class.red-icon]="form.get('numeroTarjeta')?.invalid&&form.get('numeroTarjeta')?.touched"></i></span>
+                        <input type="text" formControlName="numeroTarjeta" maxlength="16" class="form-control" placeholder="Numero Tarjeta">
+                      </div>
+                      <div class="row">
+                        <div class="col-lg-7">
+                            <div class="input-group input-group-lg mb-3">
+                                <span class="input-group-text"><i class="fa-solid fa-calendar-days"
+                                    [class.green-icon]="form.get('fechaExpiracion')?.valid"
+                                    [class.red-icon]="form.get('fechaExpiracion')?.invalid&&form.get('fechaExpiracion')?.touched"></i></span>
+                                <input type="text" maxlength="5" formControlName="fechaExpiracion" class="form-control" placeholder="MM/YY" >
+                              </div>
+                        </div>
+                        <div class="col-lg-5">
+                            <div class="input-group input-group-lg mb-3">
+                                <span class="input-group-text"><i class="fa-solid fa-key"
+                                    [class.green-icon]="form.get('cvv')?.valid"
+                                [class.red-icon]="form.get('cvv')?.invalid&&form.get('cvv')?.touched"></i> </span>
+                                <input type="password" maxlength="3" formControlName="cvv" class="form-control" placeholder="CVV" >
+                              </div>
+                        </div>
+                      </div>
+                      <div class="d-grid">
+                          <button class="btn btn-success btn-lg" type="submit" [disabled]="form.invalid"><i class="fa-solid fa-database"></i> &nbsp;Aceptar</button>
+
+                      </div>
+                </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="titulo">LISTADO DE TARJETAS</h5>
+                    <table class="table">
+                        <tbody>
+                            <tr *ngFor="let tarjeta of listTarjetas;let i=index">
+                                <td> {{tarjeta.titular}} </td>
+                                <td> {{tarjeta.numeroTarjeta}} </td>
+                                <td> {{tarjeta.fechaExpiracion}} </td>
+                                <td><i class="fa-regular fa-pen-to-square text-info" (click)="editarTarjeta(tarjeta)"></i></td>
+                                <td><i class="fa-solid fa-trash-can text-danger" (click)="eliminarTarjeta(tarjeta.id)"></i> </td>
+                            </tr>
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
